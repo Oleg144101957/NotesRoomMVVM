@@ -25,6 +25,7 @@ import com.vishnevskiypro.notesroommvvm2.MainViewModelFactory
 import com.vishnevskiypro.notesroommvvm2.model.Note
 import com.vishnevskiypro.notesroommvvm2.navigation.NavRoute
 import com.vishnevskiypro.notesroommvvm2.ui.theme.NotesRoomMVVM2Theme
+import com.vishnevskiypro.notesroommvvm2.utils.Constants
 
 @Composable
 fun AddScreen(navController: NavController, viewModel: MainViewModel) {
@@ -41,7 +42,7 @@ fun AddScreen(navController: NavController, viewModel: MainViewModel) {
             verticalArrangement = Arrangement.Center
         ) {
             Text(
-                text = "Add new note",
+                text = Constants.Keys.ADD_NEW_NOTE,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(vertical = 8.dp)
@@ -54,7 +55,7 @@ fun AddScreen(navController: NavController, viewModel: MainViewModel) {
                     title = it
                     isButtonAddEnabled = title.isNotEmpty() && subtitle.isNotEmpty()
                 },
-                label = { Text(text = "Note title") },
+                label = { Text(text = Constants.Keys.NOTE_TITLE) },
                 isError = title.isEmpty()
             )
 
@@ -64,7 +65,7 @@ fun AddScreen(navController: NavController, viewModel: MainViewModel) {
                     subtitle = it
                     isButtonAddEnabled = title.isNotEmpty() && subtitle.isNotEmpty()
                 },
-                label = { Text(text = "Subtitle") },
+                label = { Text(text = Constants.Keys.NOTE_SUBTITLE) },
                 isError = subtitle.isEmpty()
             )
             
@@ -77,7 +78,7 @@ fun AddScreen(navController: NavController, viewModel: MainViewModel) {
                     }
                 }
             ) {
-                Text(text = "Add Note")
+                Text(text = Constants.Keys.ADD_NEW_NOTE)
             }
 
         }

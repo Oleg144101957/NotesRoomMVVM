@@ -28,6 +28,7 @@ import com.vishnevskiypro.notesroommvvm2.MainViewModelFactory
 import com.vishnevskiypro.notesroommvvm2.model.Note
 import com.vishnevskiypro.notesroommvvm2.navigation.NavRoute
 import com.vishnevskiypro.notesroommvvm2.ui.theme.NotesRoomMVVM2Theme
+import com.vishnevskiypro.notesroommvvm2.utils.Constants
 
 @Composable
 fun MainScreen(navController: NavController, viewModel: MainViewModel) {
@@ -40,7 +41,7 @@ fun MainScreen(navController: NavController, viewModel: MainViewModel) {
                 navController.navigate(NavRoute.Add.route)
             }) {
                 Icon(imageVector = Icons.Filled.Add,
-                    contentDescription = "Add Button",
+                    contentDescription = Constants.Keys.ADD_NEW_NOTE,
                     tint = Color.White)
             }
         }
@@ -63,7 +64,7 @@ fun NoteItem(note: Note, navController: NavController){
             .fillMaxWidth()
             .padding(vertical = 8.dp, horizontal = 24.dp)
             .clickable {
-                navController.navigate(NavRoute.Note.route)
+                navController.navigate(NavRoute.Note.route + "/${note.id}")
             },
         elevation = 6.dp
     ) {
