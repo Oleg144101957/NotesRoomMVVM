@@ -1,5 +1,6 @@
 package com.vishnevskiypro.notesroommvvm2
 
+import android.app.Application
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -8,9 +9,10 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.NavHost
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.vishnevskiypro.notesroommvvm2.navigation.NotesNavHost
 import com.vishnevskiypro.notesroommvvm2.ui.theme.NotesRoomMVVM2Theme
 
@@ -19,6 +21,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             NotesRoomMVVM2Theme {
+                val context = LocalContext.current
+                val mViewModel : MainViewModel =
+                    viewModel(factory = MainViewModelFactory(context.applicationContext as Application))
                 Scaffold(
                     topBar = {
                         TopAppBar(
@@ -35,7 +40,7 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier.fillMaxSize(),
                             color = MaterialTheme.colors.background
                         ) {
-                            NotesNavHost()
+                            NotesNavHost(mViewModel)
                         }
                     }
                 )

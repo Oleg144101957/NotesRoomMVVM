@@ -23,7 +23,7 @@ import com.vishnevskiypro.notesroommvvm2.utils.TYPE_ROOM
 
 
 @Composable
-fun StartScreen(navController: NavController) {
+fun StartScreen(navController: NavController, viewModel: MainViewModel) {
 
     val context = LocalContext.current
     val mViewModel: MainViewModel =
@@ -73,7 +73,10 @@ fun StartScreen(navController: NavController) {
 @Composable
 fun prevStartScreen() {
     NotesRoomMVVM2Theme {
-        StartScreen(navController = rememberNavController())
+        val context = LocalContext.current
+        val mViewModel : MainViewModel =
+            viewModel(factory = MainViewModelFactory(context.applicationContext as Application))
+        StartScreen(navController = rememberNavController(), viewModel = mViewModel)
     }
 
 }

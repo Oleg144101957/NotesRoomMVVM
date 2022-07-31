@@ -3,7 +3,6 @@ package com.vishnevskiypro.notesroommvvm2.screens
 import android.app.Application
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -21,7 +20,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -32,12 +30,9 @@ import com.vishnevskiypro.notesroommvvm2.navigation.NavRoute
 import com.vishnevskiypro.notesroommvvm2.ui.theme.NotesRoomMVVM2Theme
 
 @Composable
-fun MainScreen(navController: NavController) {
+fun MainScreen(navController: NavController, viewModel: MainViewModel) {
 
-    val context = LocalContext.current
-    val mViewModel : MainViewModel =
-        viewModel(factory = MainViewModelFactory(context.applicationContext as Application))
-
+    val notes = viewModel.readAllNotes().observeAsState(listOf()).value
 
     Scaffold(
         floatingActionButton = {
@@ -50,12 +45,12 @@ fun MainScreen(navController: NavController) {
             }
         }
     ) {
-//        LazyColumn{
-//            items(notes){ note ->
-//                NoteItem(note = note, navController = navController)
-//
-//            }
-//        }
+        LazyColumn{
+            items(notes){ note ->
+                NoteItem(note = note, navController = navController)
+
+            }
+        }
 
     }
 
@@ -94,7 +89,10 @@ fun NoteItem(note: Note, navController: NavController){
 @Preview(showBackground = true)
 fun prevMainScreen() {
     NotesRoomMVVM2Theme() {
-        MainScreen(navController = rememberNavController())
+        val context = LocalContext.current
+        val mViewModel : MainViewModel =
+            viewModel(factory = MainViewModelFactory(context.applicationContext as Application))
+        MainScreen(navController = rememberNavController(), viewModel = mViewModel)
     }
 }
 

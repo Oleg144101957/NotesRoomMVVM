@@ -1,5 +1,6 @@
 package com.vishnevskiypro.notesroommvvm2.screens
 
+import android.app.Application
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,17 +11,21 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.vishnevskiypro.notesroommvvm2.MainViewModel
+import com.vishnevskiypro.notesroommvvm2.MainViewModelFactory
 import com.vishnevskiypro.notesroommvvm2.ui.theme.NotesRoomMVVM2Theme
 
 
 @Composable
-fun NoteScreen(navController: NavController) {
+fun NoteScreen(navController: NavController, viewModel: MainViewModel) {
 
     Scaffold(modifier = Modifier.fillMaxSize()) {
 
@@ -59,8 +64,11 @@ fun NoteScreen(navController: NavController) {
 @Preview(showBackground = true)
 @Composable
 fun prevNote(){
+    val context = LocalContext.current
+    val mViewModel : MainViewModel =
+        viewModel(factory = MainViewModelFactory(context.applicationContext as Application))
     NotesRoomMVVM2Theme() {
-        NoteScreen(navController = rememberNavController())
+        NoteScreen(navController = rememberNavController(), viewModel = mViewModel)
     }
 
 }
